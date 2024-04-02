@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotAbility : ClasePadre
+public class ShotAbility : Ability
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float speed;
     [SerializeField] List<Transform> bulletSpawList;
-   
+    
+
     public override void Trigger(Vector3 direction)
     {
-        if(elapsedCoolDown == 0)
+
+        if(elapsedCooldown == 0)
         {
 
             for (int i = 0; i < bulletSpawList.Count; i++)
@@ -28,9 +30,9 @@ public class ShotAbility : ClasePadre
             }
             StartCoroutine(coolDownCouroutine());
         }
-        else if(elapsedCoolDown >= CoolDown)
+        else if(elapsedCooldown >= coolDown)
         {
-            elapsedCoolDown = 0;
+            elapsedCooldown = 0;
         }
     }
 }

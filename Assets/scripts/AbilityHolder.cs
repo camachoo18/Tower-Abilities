@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AbilityHolder : MonoBehaviour
 {
-    [SerializeField] List<ClasePadre> abilities;
+    [SerializeField] List<Ability> abilities;
     int selectedAbilityIndex = 0;
     
     
