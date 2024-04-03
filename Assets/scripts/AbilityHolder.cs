@@ -6,12 +6,17 @@ public class AbilityHolder : MonoBehaviour
 {
     [SerializeField] List<Ability> abilities;
     int selectedAbilityIndex = 0;
-    
-    
-    //Vector3 hardCodePosZ = new Vector3(0, 0, 0);
 
 
-     void Update()
+     void Start()
+    {
+        for(int i = 0; i < abilities.Count; i++)
+        {
+            abilities[i].PlayerTransform(transform);
+        }
+    }
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             selectedAbilityIndex = 0;
@@ -29,20 +34,8 @@ public class AbilityHolder : MonoBehaviour
             Vector3 direction = (globalPos - transform.position).normalized;
         if (Input.GetMouseButtonDown(0))
         {
-            abilities[selectedAbilityIndex].Trigger(direction);
+            abilities[selectedAbilityIndex].Trigger(direction,this);
         }
 
-        /*   Vector3 globalPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-           globalPos.z = transform.position.z;
-
-           Vector3 direction = (globalPos - transform.position).normalized;
-
-           transform.up = direction;
-        */
-
-        //Vector3.Angle( Input.mousePosition, hardCodePosZ);
-
-        // Camera.main.ScreenToWorldPoint();
     }
 }

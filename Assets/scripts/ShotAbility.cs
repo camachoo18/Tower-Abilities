@@ -2,24 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Abilities/Shot Ability")]
 public class ShotAbility : Ability
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float speed;
-    [SerializeField] List<Transform> bulletSpawList;
-    
+    [SerializeField]int spawnCount ;
+    //[SerializeField] List<Transform> bulletSpawList;
+    [SerializeField] Transform bulletSpawnPoint;
+    List<Transform> spawn;
 
-    public override void Trigger(Vector3 direction)
+
+    public override void PlayerTransform(Transform player)
     {
+        bulletSpawnPoint = player.Find("SpawnPoint");
+        spawn = new List<Transform>();
+        for(int i = 0; i < bulletSpawnPoint.childCount; i++)
+        {
+            spawn.Add(bulletSpawnPoint.GetChild(i));            
+        }
+    }
 
-        if(elapsedCooldown == 0)
+
+
+    public override void Trigger(Vector3 direction, MonoBehaviour mbCoroutine)
+    {
+        if(elapsedCoolDown == 0)
         {
 
-            for (int i = 0; i < bulletSpawList.Count; i++)
+            for (int i = spawnCount; i < spawn.Count; i++)
             {
             GameObject projectileInstance = Instantiate(
                 bulletPrefab,
-                bulletSpawList[i].position,
+                spawn[i].position,
                 Quaternion.identity
             );
 
@@ -28,11 +43,12 @@ public class ShotAbility : Ability
             linearMovementComponent.SetSpeedAndDirection(speed, direction);
             Destroy(projectileInstance, 0.9f);
             }
-            StartCoroutine(coolDownCouroutine());
+            mbCoroutine.StartCoroutine(coolDownCouroutine());
+
         }
-        else if(elapsedCooldown >= coolDown)
+        else if(elapsedCoolDown >= CoolDown)
         {
-            elapsedCooldown = 0;
+            elapsedCoolDown = 0;
         }
     }
 }

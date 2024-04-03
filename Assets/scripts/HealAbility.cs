@@ -1,26 +1,34 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Abilities/Heal Ability")]
 public class HealAbility : Ability
 {
     healthPlayer health;
 
-    public override void Trigger(Vector3 direction)
+
+    public override void PlayerTransform(Transform player)
     {
 
-        if (elapsedCooldown == 0)
+    }
+
+
+    public override void Trigger(Vector3 direction, MonoBehaviour mbCoroutine)
+    {
+
+        if (elapsedCoolDown == 0)
         {
 
-            health = GetComponent<healthPlayer>();
+           // health = GetComponent<healthPlayer>();
             health.Heal(5);
             health.UpdateHealthColor();
 
-         
-            StartCoroutine(coolDownCouroutine());
+
+            mbCoroutine.StartCoroutine(coolDownCouroutine());
         }
-        
-        else if (elapsedCooldown >= coolDown)
+
+        else if (elapsedCoolDown >= CoolDown)
         {
-            elapsedCooldown = 0;
+            elapsedCoolDown = 0;
         }
     }
 }
