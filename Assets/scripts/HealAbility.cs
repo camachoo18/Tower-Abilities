@@ -18,7 +18,7 @@ public class HealAbility : Ability
         if (elapsedCoolDown == 0)
         {
 
-           // health = GetComponent<healthPlayer>();
+            health = mbCoroutine.GetComponent<healthPlayer>();
             health.Heal(5);
             health.UpdateHealthColor();
 
