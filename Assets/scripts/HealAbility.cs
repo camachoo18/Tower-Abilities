@@ -4,6 +4,21 @@ using UnityEngine;
 public class HealAbility : Ability
 {
     healthPlayer health;
+    [SerializeField] Image HealAbilityIcon;
+
+    void Start()
+    {
+        HealAbilityhIcon.fillAmount = 1f;
+        
+    }
+
+    void Update()
+    {
+        if (isCooldown)
+        {
+            HealAbilityIcon.fillAmount = Mathf.Clamp01(elapsedCooldown / cooldown);
+        }
+    }
 
 
     public override void PlayerTransform(Transform player)
