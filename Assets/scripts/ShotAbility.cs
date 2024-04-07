@@ -12,6 +12,14 @@ public class ShotAbility : Ability
     [SerializeField] Transform bulletSpawnPoint;
     List<Transform> spawn;
 
+        void Update()
+    {
+        if (isCooldown && abilityIcon != null)
+        {
+            abilityIcon.fillAmount = Mathf.Clamp01(1 - (elapsedCooldown / cooldown));
+        }
+    }
+
 
     public override void PlayerTransform(Transform player)
     {
