@@ -9,6 +9,8 @@ public abstract class Ability : ScriptableObject
     // [SerializeField] public Sprite sprite;
     public float elapsedCoolDown = 0;
 
+    [SerializeField] protected Image abilityIcon;
+
     public abstract void PlayerTransform(Transform player);
     public abstract void Trigger(Vector3 direction, MonoBehaviour mbCoroutine);
 
@@ -17,7 +19,7 @@ public abstract class Ability : ScriptableObject
         while (elapsedCoolDown <= CoolDown)
         {
             elapsedCoolDown += Time.deltaTime;
-           // print("Duración del cooldown -->: " + elapsedCoolDown);
+           // print("DuraciÃ³n del cooldown -->: " + elapsedCoolDown);
             yield return null;
         }
     }
